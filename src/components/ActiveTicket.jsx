@@ -131,6 +131,9 @@ function ActiveTicket() {
             <h1
               className="display-4 fw-bold text-body-emphasis"
               id="ticket-name"
+              style={{ width: "calc(100% + 96px)", // 48px padding * 2 (left + right)
+              marginLeft: "-48px",        // cancel left padding
+              marginRight: "-48px",}}
             >
               {ticket}
             </h1>
@@ -138,34 +141,55 @@ function ActiveTicket() {
               <p>1 Student </p>
               <p> £70.00 </p>
             </div>
-            <p className="valid-date">
-              Valid from: 00:00, {date} to 00:00 {secondDate}
-            </p>
+            
             <div
               className="color-code-container"
               style={{
                 backgroundColor: color,
-                transform: `rotate(${tilt}deg)`
+                transform: `rotate(${tilt}deg)`,
+                height: '180px',
+                width: "calc(100% + 96px)", // 48px padding * 2 (left + right)
+                marginLeft: "-48px",        // cancel left padding
+                marginRight: "-48px",
               }}
             >
               {showCode ? (
-                <p class="color-code">{code}</p>
+                <p class="color-code" style={{ fontSize: '105px' }}>{code}</p>
               ) : (
-                <p class="color-code">{currentTime}</p>
+                <p class="color-code" style={{ fontSize: '105px' }}>{currentTime}</p>
               )}
               <div class="bubbles">
-                <div class="bubble"></div>
-                <div class="bubble"></div>
-                <div class="bubble"></div>
-                <div class="bubble"></div>
-                <div class="bubble"></div>
-                <div class="bubble"></div>
-                <div class="bubble"></div>
-                <div class="bubble"></div>
-                <div class="bubble"></div>
-                <div class="bubble"></div>
+              <div className="bubble" style={{ width: 15, height: 15, backgroundColor: "rgba(255,255,255,0.3)" }}></div>
+              <div className="bubble" style={{ width: 200, height: 200, backgroundColor: "rgba(255,255,255,0.7)" }}></div>
+              <div className="bubble" style={{ width: 30, height: 30, backgroundColor: "rgba(255,255,255,0.7)" }}></div> 
+              <div className="bubble" style={{ width: 15, height: 15, backgroundColor: "rgba(255,255,255,0.3)" }}></div>
+              <div className="bubble" style={{ width: 150, height: 150, backgroundColor: "rgba(255,255,255,0.5)" }}></div>
+              <div className="bubble" style={{ width: 30, height: 30, backgroundColor: "rgba(255,255,255,0.7)" }}></div> 
+              <div className="bubble" style={{ width: 150, height: 150, backgroundColor: "rgba(255,255,255,0.5)" }}></div>
+              <div className="bubble" style={{ width: 130, height: 130, backgroundColor: "rgba(255,255,255,0.4)" }}></div>
+              <div className="bubble" style={{ width: 110, height: 110, backgroundColor: "rgba(255,255,255,0.6)" }}></div>
+              <div className="bubble" style={{ width: 100, height: 100, backgroundColor: "rgba(255,255,255,0.3)" }}></div>
+              <div className="bubble" style={{ width: 150, height: 150, backgroundColor: "rgba(255,255,255,0.5)" }}></div>
+              <div className="bubble" style={{ width: 80, height: 80, backgroundColor: "rgba(255,255,255,0.3)" }}></div>
+              <div className="bubble" style={{ width: 15, height: 15, backgroundColor: "rgba(255,255,255,0.3)" }}></div>
+              <div className="bubble" style={{ width: 15, height: 15, backgroundColor: "rgba(255,255,255,0.3)" }}></div>
+              <div className="bubble" style={{ width: 15, height: 15, backgroundColor: "rgba(255,255,255,0.3)" }}></div>
+              <div className="bubble" style={{ width: 150, height: 150, backgroundColor: "rgba(255,255,255,0.5)" }}></div>
+              <div className="bubble" style={{ width: 30, height: 30, backgroundColor: "rgba(255,255,255,0.7)" }}></div> 
+              <div className="bubble" style={{ width: 150, height: 150, backgroundColor: "rgba(255,255,255,0.5)" }}></div>
+              <div className="bubble" style={{ width: 130, height: 130, backgroundColor: "rgba(255,255,255,0.4)" }}></div>
+              <div className="bubble" style={{ width: 110, height: 110, backgroundColor: "rgba(255,255,255,0.6)" }}></div>
+              <div className="bubble" style={{ width: 15, height: 15, backgroundColor: "rgba(255,255,255,0.3)" }}></div>
+              <div className="bubble" style={{ width: 200, height: 200, backgroundColor: "rgba(255,255,255,0.7)" }}></div>
+              <div className="bubble" style={{ width: 30, height: 30, backgroundColor: "rgba(255,255,255,0.7)" }}></div> 
+              <div className="bubble" style={{ width: 15, height: 15, backgroundColor: "rgba(255,255,255,0.3)" }}></div>
+              <div className="bubble" style={{ width: 150, height: 150, backgroundColor: "rgba(255,255,255,0.5)" }}></div>
+              
               </div>
             </div>
+            <p className="valid-date">
+              Valid from: 00:00, {date}
+            </p>
             <div className="expiry-container">
               <p className="expiry-message"> Tickets expires in </p>
               <p className="count-down">
@@ -176,6 +200,18 @@ function ActiveTicket() {
             <div className="udid-container">
               <p>1231-20210916131213-232</p>
             </div>
+            <p
+  style={{
+    color: 'green',
+    fontSize: '3rem',
+    cursor: 'pointer',
+    textAlign: 'center',
+    marginTop: '40px',
+    userSelect: 'none'
+  }}
+>
+  More details&nbsp;&gt;
+</p>
           </div>
         </div>
       </div>
