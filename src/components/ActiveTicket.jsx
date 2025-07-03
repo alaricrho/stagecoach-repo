@@ -34,15 +34,20 @@ function ActiveTicket() {
   const [currentTime, setCurrentTime] = useState(getTimeIn24HrFormat());
 
   function calculateTimeLeft() {
-    let now = new Date();
-    let nextDay = new Date(
-      now.getFullYear(),
-      now.getMonth(),
-      now.getDate() + 1
-    );
-    let timeLeft = nextDay - now;
-    timeLeft = 535680000;
-    return timeLeft;
+    // let now = new Date();
+    // let nextDay = new Date(
+    //   now.getFullYear(),
+    //   now.getMonth(),
+    //   now.getDate() + 1
+    // );
+    // let timeLeft = nextDay - now;
+    // timeLeft = 535680000;
+    // return timeLeft;
+    const now = new Date();
+  const expiryDate = new Date('2025-07-20T00:00:00'); // Or whatever expiry time you want
+
+  const difference = expiryDate - now;
+  return difference > 0 ? difference : 0;
   }
 
   function getTimeIn24HrFormat() {
