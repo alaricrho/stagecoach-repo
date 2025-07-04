@@ -59,22 +59,77 @@ function ActiveTicket() {
     return timeString;
   }
 
+  // useEffect(() => {
+  //   const timerId = setInterval(() => {
+  //     setTimeLeft(calculateTimeLeft());
+  //     setCurrentTime(getTimeIn24HrFormat());
+  //   }, 1000);
+
+  //   const switchId = setInterval(() => {
+  //     setShowCode((prev) => !prev); // Toggle the showCode state every 3.5 seconds
+  //   }, 3500); // 3500 ms is 3.5 seconds
+
+  //   // Add event listener for device orientation
+  //   // Check if DeviceOrientationEvent is defined
+  //   if (window.DeviceOrientationEvent) {
+  //     // Check if the browser requires permission to access device orientation
+  //     if (typeof DeviceOrientationEvent.requestPermission === "function") {
+  //       // Request permission
+  //       DeviceOrientationEvent.requestPermission()
+  //         .then((permissionState) => {
+  //           if (permissionState === "granted") {
+  //             window.addEventListener("deviceorientation", handleOrientation);
+  //           }
+  //         })
+  //         .catch(console.error);
+  //     } else {
+  //       // For browsers not requiring permission
+  //       window.addEventListener("deviceorientation", handleOrientation);
+  //     }
+  //   }
+
+  //   return () => {
+  //     clearInterval(timerId);
+  //     clearInterval(switchId);
+
+  //     // Remove event listener for device orientation
+  //     if (window.DeviceOrientationEvent) {
+  //       window.removeEventListener("deviceorientation", handleOrientation);
+  //     }
+  //   };
+  // }, []);
+
+
   useEffect(() => {
     const timerId = setInterval(() => {
       setTimeLeft(calculateTimeLeft());
       setCurrentTime(getTimeIn24HrFormat());
     }, 1000);
-
+  
     const switchId = setInterval(() => {
-      setShowCode((prev) => !prev); // Toggle the showCode state every 3.5 seconds
-    }, 3500); // 3500 ms is 3.5 seconds
-
-    // Add event listener for device orientation
-    // Check if DeviceOrientationEvent is defined
+      setShowCode((prev) => !prev);
+    }, 3500);
+  
+    let latestGamma = 0;
+    let animationFrameId;
+  
+    const handleOrientation = (event) => {
+      if (typeof event.gamma === "number") {
+        latestGamma = event.gamma;
+      }
+    };
+  
+    const smoothTilt = () => {
+      setTilt((prev) => {
+        const diff = latestGamma - prev;
+        return prev + diff * 0.1; // 0.1 = smoothing factor
+      });
+      animationFrameId = requestAnimationFrame(smoothTilt);
+    };
+  
+    // Permission and event listener setup
     if (window.DeviceOrientationEvent) {
-      // Check if the browser requires permission to access device orientation
       if (typeof DeviceOrientationEvent.requestPermission === "function") {
-        // Request permission
         DeviceOrientationEvent.requestPermission()
           .then((permissionState) => {
             if (permissionState === "granted") {
@@ -83,19 +138,18 @@ function ActiveTicket() {
           })
           .catch(console.error);
       } else {
-        // For browsers not requiring permission
         window.addEventListener("deviceorientation", handleOrientation);
       }
     }
-
+  
+    // Start animation loop
+    animationFrameId = requestAnimationFrame(smoothTilt);
+  
     return () => {
       clearInterval(timerId);
       clearInterval(switchId);
-
-      // Remove event listener for device orientation
-      if (window.DeviceOrientationEvent) {
-        window.removeEventListener("deviceorientation", handleOrientation);
-      }
+      window.removeEventListener("deviceorientation", handleOrientation);
+      cancelAnimationFrame(animationFrameId);
     };
   }, []);
 
@@ -156,6 +210,7 @@ function ActiveTicket() {
                 width: "calc(100% + 96px)", // 48px padding * 2 (left + right)
                 marginLeft: "-48px",        // cancel left padding
                 marginRight: "-48px",
+                transition: 'transform 0.1s linear' //this is the one changed
               }}
             >
               {showCode ? (
